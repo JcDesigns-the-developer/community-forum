@@ -1,0 +1,3 @@
+# Add to torrc and adjust paths as needed.
+HiddenServiceDir /var/lib/tor/community-forum/
+HiddenServicePort 80 127.0.0.1:3000
