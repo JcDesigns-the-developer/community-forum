@@ -1,6 +1,6 @@
 const express=require('express');
 const path=require('path'),fs=require('fs'),crypto=require('crypto'),bcrypt=require('bcryptjs'),Database=require('better-sqlite3');
-const helmet=require('helmet'),rateLimit=require('express-rate-limit');
+const helmet=require('helmet'),rateLimit=require('express-rate-limit'),cookieParser=require('cookie-parser');
 
 const app=express();
 const PORT=Number(process.env.PORT||3000),HOST=process.env.HOST||'127.0.0.1';
@@ -30,6 +30,7 @@ if(adminUser&&adminPass&&!db.prepare('SELECT id FROM users WHERE username=?').ge
 }
 app.disable('x-powered-by');
 app.use(helmet({contentSecurityPolicy:false,crossOriginEmbedderPolicy:false}));
+app.use(cookieParser());
 app.use(express.json({limit:'64kb'}));
 app.use(express.urlencoded({extended:false,limit:'32kb'}));
 app.use(rateLimit({windowMs:15*60*1000,limit:300,standardHeaders:'draft-8',legacyHeaders:false}));
